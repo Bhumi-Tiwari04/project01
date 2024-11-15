@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance and Assignment</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Page</h1>
+        
+        <!-- New Assignment Section -->
+        <div id="new-assignments">
+            <h2>Latest Assignment</h2>
+            <div id="assignment-details">
+                <!-- Latest assignment details will be populated here -->
+            </div>
+        </div>
+
+        <!-- Assignment Submission Section -->
+        <div>
+            <h3>Submit Your Assignment</h3>
+            <!-- Form for submitting the assignment -->
+            <form action="/submit-assignment" method="POST" enctype="multipart/form-data">
+                <label for="assignment-name">Assignment Name:</label>
+                <input type="text" id="assignment-name" name="assignment-name" placeholder="Enter assignment name" required />
+        
+                <label for="assignment-file">Upload Assignment File:</label>
+                <input type="file" id="assignment-file" name="assignment-file" required />
+                
+                <!-- Hidden input to store assignment ID (if required) -->
+                <input type="hidden" name="assignment-id" value="<%= assignment._id %>" /> 
+        
+                <button type="submit">Submit Assignment</button>
+            </form>
+        </div>
+        
+        <!-- Attendance Marking Section -->
+        <div>
+            <h3>Mark Attendance</h3>
+            <label for="attendance-status">Select Your Status:</label>
+            <select id="attendance-status">
+                <option value="">Select Status</option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Late">Late</option>
+            </select>
+            <button onclick="markAttendance()">Mark Attendance</button>
+        </div>
+
+        <a href="/teacher">Go to Teacher Page</a>
+    </div>
+
+    <script>
+        // Fetch the latest assignment from the server and display it
+        window.onload = function() {
+            // Fetch the latest assignment from the backend
+            fetch('/get-latest-assignment')
+            .then(response => response.json())
+            .then(data => {
+                const assignmentBox = document.getElementById('assignment-details');
+                
+                if (data.assignment) {
+                    // If there is a latest assignment, show it
+                    assignmentBox.innerHTML = `
+                        <p><strong>Assignment Question:</strong> ${data.assignment.question}</p>
+                        <p><strong>Deadline:</strong> ${new Date(data.assignment.deadline).toLocaleDateString()}</p>
+                    `;
+                } else {
+                    // If no assignments are available, show this message
+                    assignmentBox.innerHTML = '<p>No new assignments available.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching assignment:', error);
+                document.getElementById('assignment-details').innerHTML = '<p>There was an error fetching the assignment.</p>';
+            });
+        };
+
+        // Function to submit the assignment
+        function submitAssignment() {
+            const assignmentName = document.getElementById('assignment-name').value;
+            const assignmentFile = document.getElementById('assignment-file').files[0];
+
+            if (assignmentName && assignmentFile) {
+                const formData = new FormData();
+                formData.append('assignment-name', assignmentName);
+                formData.append('assignment-file', assignmentFile);
+
+                // Send the data to the server using fetch API
+                fetch('/submit-assignment', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          alert(data.message); // Success message from backend
+                      } else {
+                          alert('Error submitting assignment');
+                      }
+                  })
+                  .catch(error => alert('Error submitting assignment'));
+            } else {
+                alert('Please fill in both assignment name and file');
+            }
+        }
+
+        // Function to mark attendance
+        function markAttendance() {
+            const attendanceStatus = document.getElementById('attendance-status').value;
+            if (attendanceStatus) {
+                fetch('/mark-attendance', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: attendanceStatus })
+                }).then(response => response.json())
+                  .then(data => {
+                      alert(data.message);
+                  })
+                  .catch(error => alert('Error marking attendance'));
+            } else {
+                alert('Please select attendance status');
+            }
+        }
+    </script>
+</body>
+</html>

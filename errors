@@ -1,0 +1,552 @@
+this is t.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Overview</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Page</h1>
+        <h1>Attendance Overview</h1>
+        
+        <!-- OTP Section -->
+        <div>
+            <label for="otp-input">Enter OTP:</label>
+            <input type="text" id="otp-input" readonly />
+            <button onclick="generateOTP()">Generate OTP</button>
+        </div>
+        
+        <label for="course-select">Select Course:</label>
+        <select id="course-select">
+            <option value="">Select a Course</option>
+            <option value="bca">BCA</option>
+            <option value="bcom">BCom</option>
+            <option value="bsc">BSc</option>
+            <option value="ba">BA</option>
+        </select>
+        
+        <div id="attendance-box" class="attendance-box" style="display: none;">
+            <h2>Attendance Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Attendance Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendance-table-body">
+                    <!-- Dynamic content will be injected here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <a href="/student">Go to Student Page</a>
+    </div>
+
+    <script>
+        const attendanceData = {
+            bca: [
+                { name: "John Doe", batch: "Batch A", status: "Present" },
+                { name: "Emily Johnson", batch: "Batch A", status: "Absent" }
+            ],
+            bcom: [
+                { name: "Jane Smith", batch: "Batch B", status: "Late" },
+                { name: "Mark Wilson", batch: "Batch B", status: "Present" }
+            ],
+            bsc: [
+                { name: "Lucy Brown", batch: "Batch C", status: "Absent" },
+                { name: "Mike Davis", batch: "Batch C", status: "Present" }
+            ],
+            ba: [
+                { name: "Sara Connor", batch: "Batch D", status: "Present" },
+                { name: "Alex Taylor", batch: "Batch D", status: "Absent" }
+            ]
+        };
+
+        // Handle course selection and display attendance data
+        document.getElementById('course-select').addEventListener('change', function() {
+            const selectedCourse = this.value;
+            const attendanceTableBody = document.getElementById('attendance-table-body');
+            attendanceTableBody.innerHTML = '';
+
+            if (selectedCourse) {
+                const students = attendanceData[selectedCourse];
+                students.forEach(student => {
+                    const row = <tr>
+                        <td>${student.name}</td>
+                        <td>${student.batch}</td>
+                        <td>${student.status}</td>
+                    </tr>;
+                    attendanceTableBody.innerHTML += row;
+                });
+                document.getElementById('attendance-box').style.display = 'block';
+            } else {
+                document.getElementById('attendance-box').style.display = 'none';
+            }
+        });
+
+        // Function to generate OTP and populate the OTP input field
+        function getRandomInteger(min, max) {
+            const input = prompt("Enter a number between " + min + " and " + max);
+            const num = parseInt(input);
+            if (isNaN(num) || num < min || num > max) {
+                alert("Invalid input! Please enter a number between " + min + " and " + max);
+                return getRandomInteger(min, max);  // Recursively ask for input if invalid
+            }
+            return num;
+        }
+
+        function generateOTP() {
+            // Generate a 6-digit OTP
+            const otp = getRandomInteger(100000, 999999);  // Generating a 6-digit OTP
+            document.getElementById('otp-input').value = otp;  // Display OTP in input field
+            alert("Your OTP is: " + otp);  // Show OTP in an alert
+        }
+    </script>
+</body>
+</html>
+
+this is attu.ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Overview</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Page</h1>
+        <h1>Attendance Overview</h1>
+        
+        <!-- OTP Section -->
+        <div>
+            <label for="otp-input">Enter OTP:</label>
+            <input type="text" id="otp-input" readonly />
+            <button onclick="generateOTP()">Generate OTP</button>
+        </div>
+        
+        <label for="course-select">Select Course:</label>
+        <select id="course-select">
+            <option value="">Select a Course</option>
+            <option value="bca">BCA</option>
+            <option value="bcom">BCom</option>
+            <option value="bsc">BSc</option>
+            <option value="ba">BA</option>
+        </select>
+        
+        <div id="attendance-box" class="attendance-box" style="display: none;">
+            <h2>Attendance Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Attendance Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendance-table-body">
+                    <!-- Dynamic content will be injected here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <a href="/student">Go to Student Page</a>
+    </div>
+
+    <script>
+        const attendanceData = {
+            bca: [
+                { name: "John Doe", batch: "Batch A", status: "Present" },
+                { name: "Emily Johnson", batch: "Batch A", status: "Absent" }
+            ],
+            bcom: [
+                { name: "Jane Smith", batch: "Batch B", status: "Late" },
+                { name: "Mark Wilson", batch: "Batch B", status: "Present" }
+            ],
+            bsc: [
+                { name: "Lucy Brown", batch: "Batch C", status: "Absent" },
+                { name: "Mike Davis", batch: "Batch C", status: "Present" }
+            ],
+            ba: [
+                { name: "Sara Connor", batch: "Batch D", status: "Present" },
+                { name: "Alex Taylor", batch: "Batch D", status: "Absent" }
+            ]
+        };
+
+        // Handle course selection and display attendance data
+        document.getElementById('course-select').addEventListener('change', function() {
+            const selectedCourse = this.value;
+            const attendanceTableBody = document.getElementById('attendance-table-body');
+            attendanceTableBody.innerHTML = '';
+
+            if (selectedCourse) {
+                const students = attendanceData[selectedCourse];
+                students.forEach(student => {
+                    const row = <tr>
+                        <td>${student.name}</td>
+                        <td>${student.batch}</td>
+                        <td>${student.status}</td>
+                    </tr>;
+                    attendanceTableBody.innerHTML += row;
+                });
+                document.getElementById('attendance-box').style.display = 'block';
+            } else {
+                document.getElementById('attendance-box').style.display = 'none';
+            }
+        });
+
+        // Function to generate OTP and populate the OTP input field
+        function getRandomInteger(min, max) {
+            const input = prompt("Enter a number between " + min + " and " + max);
+            const num = parseInt(input);
+            if (isNaN(num) || num < min || num > max) {
+                alert("Invalid input! Please enter a number between " + min + " and " + max);
+                return getRandomInteger(min, max);  // Recursively ask for input if invalid
+            }
+            return num;
+        }
+
+        function generateOTP() {
+            // Generate a 6-digit OTP
+            const otp = getRandomInteger(100000, 999999);  // Generating a 6-digit OTP
+            document.getElementById('otp-input').value = otp;  // Display OTP in input field
+            alert("Your OTP is: " + otp);  // Show OTP in an alert
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Overview</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Page</h1>
+        <h1>Attendance Overview</h1>
+        
+        <!-- OTP Section -->
+        <div>
+            <label for="otp-input">Enter OTP:</label>
+            <input type="text" id="otp-input" readonly />
+            <button onclick="generateOTP()">Generate OTP</button>
+        </div>
+        
+        <label for="course-select">Select Course:</label>
+        <select id="course-select">
+            <option value="">Select a Course</option>
+            <option value="bca">BCA</option>
+            <option value="bcom">BCom</option>
+            <option value="bsc">BSc</option>
+            <option value="ba">BA</option>
+        </select>
+        
+        <!-- Attendance Details -->
+        <div id="attendance-box" class="attendance-box" style="display: none;">
+            <h2>Attendance Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Attendance Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendance-table-body">
+                    <!-- Dynamic content will be injected here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Assignment Details -->
+        <div id="assignment-box" class="assignment-box" style="display: none;">
+            <h2>Submitted Assignments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Assignment Name</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody id="assignment-table-body">
+                    <!-- Dynamic content will be injected here -->
+                </tbody>
+            </table>
+        </div>
+
+        <a href="/student">Go to Student Page</a>
+    </div>
+
+    <script>
+        const attendanceData = {};  // Store attendance data in memory
+        const assignmentsData = [];  // Store assignments data in memory
+
+        document.getElementById('course-select').addEventListener('change', function() {
+            const selectedCourse = this.value;
+            const attendanceTableBody = document.getElementById('attendance-table-body');
+            const assignmentTableBody = document.getElementById('assignment-table-body');
+            attendanceTableBody.innerHTML = '';
+            assignmentTableBody.innerHTML = '';
+
+            if (selectedCourse) {
+                // Populate attendance data (just mock data for now)
+                const students = [
+                    { name: 'John Doe', batch: 'Batch A', status: 'Present' },
+                    { name: 'Emily Johnson', batch: 'Batch A', status: 'Absent' }
+                ];
+                students.forEach(student => {
+                    const row = `<tr>
+                        <td>${student.name}</td>
+                        <td>${student.batch}</td>
+                        <td>${student.status}</td>
+                    </tr>`;
+                    attendanceTableBody.innerHTML += row;
+                });
+
+                // Display submitted assignments
+                assignmentsData.forEach(assignment => {
+                    const row = `<tr>
+                        <td>${assignment.name}</td>
+                        <td>${assignment.assignmentName}</td>
+                        <td><a href="${assignment.fileUrl}" download>Download</a></td>
+                    </tr>`;
+                    assignmentTableBody.innerHTML += row;
+                });
+
+                document.getElementById('attendance-box').style.display = 'block';
+                document.getElementById('assignment-box').style.display = 'block';
+            } else {
+                document.getElementById('attendance-box').style.display = 'none';
+                document.getElementById('assignment-box').style.display = 'none';
+            }
+        });
+
+        function generateOTP() {
+            const otp = Math.floor(Math.random() * 1000000);
+            document.getElementById('otp-input').value = otp;
+            alert('Your OTP is: ' + otp);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+date 14
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Dashboard</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+<div class="container">
+    <h1>Teacher's Page</h1>
+    <h2>Attendance Overview</h2>
+
+    <!-- OTP Section -->
+    <div>
+        <label for="otp-input">Enter OTP:</label>
+        <input type="text" id="otp-input" readonly />
+        <button onclick="generateOTP()">Generate OTP</button>
+    </div>
+
+    <!-- Course Selection -->
+    <label for="course-select">Select Course:</label>
+    <select id="course-select">
+        <option value="">Select a Course</option>
+        <option value="bca">BCA</option>
+        <option value="bcom">BCom</option>
+        <option value="bsc">BSc</option>
+        <option value="ba">BA</option>
+    </select>
+
+    <!-- Attendance Details Section -->
+    <div id="attendance-box" class="attendance-box" style="display: none;">
+        <h2>Attendance Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Batch</th>
+                    <th>Attendance Status</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-table-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Submitted Assignments Section -->
+    <div id="assignment-box" class="assignment-box" style="display: none;">
+        <h2>Submitted Assignments</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Assignment Name</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody id="assignment-table-body"></tbody>
+        </table>
+    </div>
+
+    <!-- New Assignment Section -->
+    <div id="new-assignment-box" class="new-assignment-box">
+        <h2>Add New Assignment Question</h2>
+        <form id="new-assignment-form">
+            <label for="assignment-question">Assignment Question:</label><br>
+            <textarea id="assignment-question" rows="4" cols="50" placeholder="Enter the new assignment question here..."></textarea><br><br>
+            <label for="assignment-deadline">Deadline:</label><br>
+            <input type="date" id="assignment-deadline"><br><br>
+            <button type="button" onclick="addAssignment()">Add Assignment</button>
+        </form>
+    </div>
+
+    <a href="/student">Go to Student Page</a>
+</div>
+
+<script>
+    // Fetch assignments from the server dynamically
+    function fetchAssignments(course) {
+        fetch(`/get-assignments?course=${course}`)
+            .then(response => response.json())
+            .then(data => {
+                const assignmentTableBody = document.getElementById('assignment-table-body');
+                assignmentTableBody.innerHTML = '';
+                data.assignments.forEach(assignment => {
+                    const row = `
+                        <tr>
+                            <td>${assignment.studentName}</td>
+                            <td>${assignment.assignmentName}</td>
+                            <td><a href="/students/files/${assignment.fileId}" download>Download</a></td>
+                        </tr>
+                    `;
+                    assignmentTableBody.innerHTML += row;
+                });
+                document.getElementById('assignment-box').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error fetching assignments:', error);
+                alert('Error fetching assignments.');
+            });
+    }
+
+    // Fetch attendance data (for now, using static data)
+    function fetchAttendance(course) {
+        const attendanceTableBody = document.getElementById('attendance-table-body');
+        attendanceTableBody.innerHTML = '';
+        // Static example data, you can replace this with real data from the server
+        const attendanceData = [
+            { name: "John Doe", batch: "BCA1", status: "Present" },
+            { name: "Jane Smith", batch: "BCA1", status: "Absent" },
+            { name: "Alice Brown", batch: "BCA1", status: "Late" }
+        ];
+
+        attendanceData.forEach(student => {
+            const row = `
+                <tr>
+                    <td>${student.name}</td>
+                    <td>${student.batch}</td>
+                    <td>${student.status}</td>
+                </tr>
+            `;
+            attendanceTableBody.innerHTML += row;
+        });
+
+        document.getElementById('attendance-box').style.display = 'block';
+    }
+
+    // Handle course selection
+    document.getElementById('course-select').addEventListener('change', function() {
+        const selectedCourse = this.value;
+        if (selectedCourse) {
+            fetchAttendance(selectedCourse);
+            fetchAssignments(selectedCourse);
+        } else {
+            document.getElementById('attendance-box').style.display = 'none';
+            document.getElementById('assignment-box').style.display = 'none';
+        }
+    });
+
+    // Function to generate OTP (temporary)
+    function generateOTP() {
+        const otp = Math.floor(Math.random() * 1000000); // Generate a random 6-digit number
+        document.getElementById('otp-input').value = otp;
+        alert('Your OTP is: ' + otp);
+    }
+
+    // Function to add a new assignment question
+    function addAssignment() {
+        const question = document.getElementById('assignment-question').value;
+        const deadline = document.getElementById('assignment-deadline').value;
+
+        if (question && deadline) {
+            // Log the data being sent
+            console.log('Adding Assignment:', { question, deadline });
+
+            // Send assignment data to the server via POST
+            fetch('/add-assignment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question, deadline })
+            })
+            .then(response => {
+                // Log the server response
+                return response.json(); // This will parse the JSON response body
+            })
+            .then(data => {
+                // Log the parsed response data
+                console.log('Server response:', data);
+                alert(data.message);  // Alert the message from server
+                document.getElementById('new-assignment-form').reset(); // Reset the form
+            })
+            .catch(error => {
+                console.error('Error adding assignment:', error);  // Log the error
+                alert('Error adding assignment: ' + error);  // Show an alert
+            });
+        } else {
+            alert('Please fill in both the assignment question and deadline.');
+        }
+    }
+</script>
+
+</body>
+</html>

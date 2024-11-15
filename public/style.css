@@ -1,0 +1,204 @@
+.simonetta-regular-italic {
+    font-family: "Simonetta", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+
+body {
+    background-color: Lavender;
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F9F6EE;
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px; 
+    border-radius: 8px;
+    margin: 20px; 
+    flex-wrap: wrap;
+}
+
+#navbar .logo {
+    font-weight: bold;
+    font-size: 1.2em; /* Optional: Adjust logo size */
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Ensures even spacing between items */
+}
+
+#navbar ul li {
+    margin: 0;
+}
+
+#navbar ul li a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px; /* Adjust padding for better spacing */
+    border-radius: 50px; /* Circular border for links */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#navbar ul li a .icon {
+    margin-right: 8px; /* Space for the icon */
+}
+
+#navbar ul li a:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode #navbar {
+    background-color: black;
+    color: white;
+}
+
+.dark-mode #navbar ul li a {
+    color: white;
+}
+
+.dark-mode #navbar ul li a:hover {
+    background-color: white;
+    color: black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.content {
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #navbar ul li a {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #navbar ul {
+        gap: 8px;
+    }
+
+    #navbar ul li a {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+
+    #navbar .logo {
+        font-size: 1em;
+    }
+}
+.cmp{
+    text-align: center;
+    justify-content: center;
+
+}
+
+p{
+    color: #1d1160ab;
+    flex: 1;
+    margin: 0;
+            line-height: 1.5; 
+}
+
+.card {
+    max-width: 300px;
+    padding: 20px;
+    border: 2px solid #ddd; /* Border color */
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+    
+    margin: 20px; /* Optional: margin to separate the card from other content */
+}
+.card h1 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #333;
+}
+.card h2 {
+    margin: 0 0 20px;
+    font-size: 1.2em;
+    color: #666;
+}
+.card p {
+    margin: 0;
+    line-height: 1.6;
+    color: #444;
+}
+.cards{
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.vdo{
+    width: 360px;
+    height: 360px;
+
+    border: 2px solid #444;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.contact-icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.contact-icons a {
+    color: #333;
+    font-size: 24px;
+    text-decoration: none;
+
+}
+.contact-icons .contact-a:hover {
+    color: #1a73e8;
+}
+
+.cp-h3{
+align-items: center;
+text-align: center;
+color: rgba(187, 0, 255, 0.934); 
+
+}

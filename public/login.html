@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Register</title>
+    <link rel="icon" href="login.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #080710;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 800px;
+        }
+        .box {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.13);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            padding: 50px 35px;
+            margin: 0 20px;
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        }
+        .type {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 42px;
+            border-radius: 3px;
+            padding: 0 10px;
+            margin: 12px 0; /* Adjusted for space above and below */
+        }
+        
+
+        h3 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+            color: #ffffff;
+        }
+        label {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+        input {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #ffffff;
+        }
+        button {
+            margin-top: 30px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        small {
+            color: #e5e5e5;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Registration Form -->
+        <div class="box">
+            <h3>Register Here</h3>
+            <form action="/register" method="POST">
+                <label for="register-username">Username</label>
+                <input type="text" placeholder="Username" id="register-username" name="username" required>
+                <label for="register-password">Password</label>
+                <input type="password" placeholder="Password" id="register-password" name="password" required>
+                <label for="contactNumber">Contact Number</label>
+                <input type="text" placeholder="Contact Number" name="contactNumber" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <!-- Login Form -->
+        <div class="box">
+            <h3>Login Here</h3>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <select class="type" name="userType" required>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+                <button type="submit">Login</button>
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>

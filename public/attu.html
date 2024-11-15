@@ -1,0 +1,242 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <link rel="stylesheet" href="attu.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mark Attendance</h1>
+        <form id="attendance-form">
+            <label for="student-name">Student Name:</label>
+            <input type="text" id="student-name" required>
+
+            <label for="course">Course:</label>
+            <input type="text" id="course" required>
+
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" required>
+
+            <label for="attendance-status">Attendance Status:</label>
+            <select id="attendance-status" required>
+                <option value="">Select Status</option>
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+                <option value="late">Late</option>
+            </select>
+
+            <button type="submit">Mark Attendance</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('attendance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const course = document.getElementById('course').value;
+            const otp = document.getElementById('otp').value;
+            const status = document.getElementById('attendance-status').value;
+            document.getElementById('message').innerText = `${name} (${course}) has been marked as ${status}. OTP: ${otp}`;
+            this.reset();
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <link rel="stylesheet" href="attu.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mark Attendance</h1>
+        <form id="attendance-form">
+            <label for="student-name">Student Name:</label>
+            <input type="text" id="student-name" required>
+
+            <label for="course">Course:</label>
+            <input type="text" id="course" required>
+
+            <label for="otp">OTP:</label>
+            <input type="text" id="otp" required>
+
+            <label for="attendance-status">Attendance Status:</label>
+            <select id="attendance-status" required>
+                <option value="">Select Status</option>
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+                <option value="late">Late</option>
+            </select>
+
+            <button type="submit">Mark Attendance</button>
+        </form>
+
+        <h2>Submit Assignment</h2>
+        <select id="assignment-dropdown">
+            <option value="">Select an option</option>
+            <option value="submit">Submit Assignment</option>
+        </select>
+
+        <div id="assignment-form" class="hidden">
+            <label for="assignment-name">Assignment Name:</label>
+            <input type="text" id="assignment-name" required>
+
+            <label for="student-assignment-name">Student Name:</label>
+            <input type="text" id="student-assignment-name" required>
+
+            <label for="assignment-file">Upload File:</label>
+            <input type="file" id="assignment-file" required>
+
+            <button id="submit-assignment">Submit Assignment</button>
+        </div>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('attendance-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const course = document.getElementById('course').value;
+            const otp = document.getElementById('otp').value;
+            const status = document.getElementById('attendance-status').value;
+            document.getElementById('message').innerText = `${name} (${course}) has been marked as ${status}. OTP: ${otp}`;
+            this.reset();
+        });
+
+        document.getElementById('assignment-dropdown').addEventListener('change', function() {
+            const assignmentForm = document.getElementById('assignment-form');
+            if (this.value === 'submit') {
+                assignmentForm.classList.remove('hidden');
+            } else {
+                assignmentForm.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('submit-assignment').addEventListener('click', function(event) {
+            event.preventDefault();
+            const assignmentName = document.getElementById('assignment-name').value;
+            const studentName = document.getElementById('student-assignment-name').value;
+            const file = document.getElementById('assignment-file').files[0];
+
+            if (assignmentName && studentName && file) {
+                document.getElementById('message').innerText = `Assignment "${assignmentName}" submitted by ${studentName}.`;
+                document.getElementById('assignment-form').reset();
+                document.getElementById('assignment-dropdown').value = '';
+                document.getElementById('assignment-form').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="attu.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Portal</h1>
+        <label for="form-select">Select an Action:</label>
+        <select id="form-select" onchange="toggleForm()">
+            <option value="">Select an Option</option>
+            <option value="attendance">Mark Attendance</option>
+            <option value="assignment">Submit Assignment</option>
+        </select>
+
+        <div id="attendance-form" class="form-section" style="display: none;">
+            <h2>Mark Attendance</h2>
+            <form>
+                <label for="student-name">Student Name:</label>
+                <input type="text" id="student-name" required>
+
+                <label for="course">Course:</label>
+                <input type="text" id="course" required>
+
+                <label for="otp">OTP:</label>
+                <input type="text" id="otp" required>
+
+                <label for="attendance-status">Attendance Status:</label>
+                <select id="attendance-status" required>
+                    <option value="">Select Status</option>
+                    <option value="present">Present</option>
+                    <option value="absent">Absent</option>
+                    <option value="late">Late</option>
+                </select>
+
+                <button type="submit">Mark Attendance</button>
+            </form>
+            <div id="attendance-message"></div>
+        </div>
+
+        <div id="assignment-form" class="form-section" style="display: none;">
+            <h2>Submit Assignment</h2>
+            <form id="assignment-submit">
+                <label for="assignment-name">Name:</label>
+                <input type="text" id="assignment-name" required>
+
+                <label for="batch">Batch:</label>
+                <input type="text" id="batch" required>
+
+                <label for="paper">Paper:</label>
+                <input type="text" id="paper" required>
+
+                <label for="file-upload">File Upload:</label>
+                <input type="file" id="file-upload" required>
+
+                <button type="submit">Submit Assignment</button>
+            </form>
+            <div id="assignment-message"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const selectedValue = document.getElementById('form-select').value;
+            document.getElementById('attendance-form').style.display = selectedValue === 'attendance' ? 'block' : 'none';
+            document.getElementById('assignment-form').style.display = selectedValue === 'assignment' ? 'block' : 'none';
+        }
+
+        // Attendance Form Submission
+        document.querySelector('#attendance-form form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('student-name').value;
+            const course = document.getElementById('course').value;
+            const otp = document.getElementById('otp').value;
+            const status = document.getElementById('attendance-status').value;
+            document.getElementById('attendance-message').innerText = `${name} (${course}) has been marked as ${status}. OTP: ${otp}`;
+            this.reset();
+        });
+
+        // Assignment Form Submission
+        document.getElementById('assignment-submit').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('assignment-name').value;
+            const batch = document.getElementById('batch').value;
+            const paper = document.getElementById('paper').value;
+            const file = document.getElementById('file-upload').files[0]?.name || 'No file uploaded';
+            document.getElementById('assignment-message').innerText = `${name} has submitted the assignment for ${paper} in batch ${batch}. File: ${file}`;
+            this.reset();
+        });
+    </script>
+</body>
+</html>

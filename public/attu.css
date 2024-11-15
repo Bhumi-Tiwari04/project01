@@ -1,0 +1,153 @@
+/* body {
+    font-family: Arial, sans-serif;
+    background-color:  #d4c9ed;
+
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #555;
+}
+
+input[type="text"], input[type="file"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+#attendance-message, #assignment-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #e7f3fe;
+    color: #31708f;
+    text-align: center;
+} */
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d4c9ed;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    color: #555;
+}
+
+input[type="text"], input[type="file"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, transform 0.2s ease; /* Added transition for transform */
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+select:hover {
+    border-color: #0056b3; /* Highlight effect on hover */
+    transform: scale(1.05); /* Grow effect on hover */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease; /* Added transition */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+#attendance-message, #assignment-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #e7f3fe;
+    color: #31708f;
+    text-align: center;
+    transition: background-color 0.3s ease; /* Added transition */
+}
+
+#attendance-message:hover, #assignment-message:hover {
+    background-color: #d4edda; /* Slightly darker background on hover */
+}

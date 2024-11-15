@@ -1,0 +1,28 @@
+.attendance-box {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: #007bff; /* Table header background color */
+    color: white;
+}
+
+tbody tr:hover {
+    background-color: #f2f2f2; /* Row hover effect */
+}

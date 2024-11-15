@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Overview</title>
+    <link rel="stylesheet" href="t.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Page</h1>
+        <h1>Attendance Overview</h1>
+        <label for="course-select">Select Course:</label>
+        <select id="course-select">
+            <option value="">Select a Course</option>
+            <option value="bca">BCA</option>
+            <option value="bcom">BCom</option>
+            <option value="bsc">BSc</option>
+            <option value="ba">BA</option>
+        </select>
+        <div id="attendance-box" class="attendance-box" style="display: none;">
+            <h2>Attendance Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Attendance Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendance-table-body">
+                    <!-- Dynamic content will be injected here -->
+                </tbody>
+            </table>
+        </div>
+        <p>Your OTP is: <strong><%= otp ? otp : 'Not available' %></strong></p>
+
+        <a href="/student">Go to Student Page</a>
+    </div>
+
+    <script>
+        const attendanceData = {
+            bca: [
+                { name: "John Doe", batch: "Batch A", status: "Present" },
+                { name: "Emily Johnson", batch: "Batch A", status: "Absent" }
+            ],
+            bcom: [
+                { name: "Jane Smith", batch: "Batch B", status: "Late" },
+                { name: "Mark Wilson", batch: "Batch B", status: "Present" }
+            ],
+            bsc: [
+                { name: "Lucy Brown", batch: "Batch C", status: "Absent" },
+                { name: "Mike Davis", batch: "Batch C", status: "Present" }
+            ],
+            ba: [
+                { name: "Sara Connor", batch: "Batch D", status: "Present" },
+                { name: "Alex Taylor", batch: "Batch D", status: "Absent" }
+            ]
+        };
+
+        document.getElementById('course-select').addEventListener('change', function() {
+            const selectedCourse = this.value;
+            const attendanceTableBody = document.getElementById('attendance-table-body');
+            attendanceTableBody.innerHTML = '';
+
+            if (selectedCourse) {
+                const students = attendanceData[selectedCourse];
+                students.forEach(student => {
+                    const row = `<tr>
+                        <td>${student.name}</td>
+                        <td>${student.batch}</td>
+                        <td>${student.status}</td>
+                    </tr>`;
+                    attendanceTableBody.innerHTML += row;
+                });
+                document.getElementById('attendance-box').style.display = 'block';
+            } else {
+                document.getElementById('attendance-box').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
