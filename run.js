@@ -71,6 +71,9 @@ app.use(session({
     cookie: { maxAge: 3600000 } // Session expires after 1 hour
 }));
 
+
+
+
 // File upload setup
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -152,7 +155,7 @@ app.post("/login", async (req, res) => {
             
             // Redirect based on userType
             if (userType === 'student') {
-                return res.redirect('/attu.html');
+                return res.render('attu');
             } else if (userType === 'teacher') {
                 return res.render('t');
             }
@@ -165,40 +168,69 @@ app.post("/login", async (req, res) => {
 });
 
 // Route to add a new assignment (for teachers)
+
 app.post('/add-assignment', async (req, res) => {
-    const { question, deadline } = req.body;
+    const { title, description, question, deadline } = req.body;  // Add title and description here
     const teacherId = req.session.userId;
 
+    // Check if teacher is logged in
     if (!teacherId) {
-        return res.status(403).send("You must be logged in as a teacher to add assignments.");
+        return res.status(403).json({ success: false, message: "You must be logged in as a teacher to add assignments." });
+    }
+
+    // Check if all required fields are present
+    if (!title || !description || !question || !deadline) {
+        return res.status(400).json({ success: false, message: "Title, description, question, and deadline are required." });
     }
 
     try {
+        // Create a new assignment object
         const newAssignment = new Assignment({
+            title,           // Add title here
+            description,     // Add description here
             question,
             deadline,
             createdBy: teacherId
         });
+
+        // Save the new assignment to the database
         await newAssignment.save();
-        res.redirect('/teacher');
+
+        // Respond with success message
+        res.status(200).json({ success: true, message: 'Assignment added successfully' });
     } catch (error) {
-        res.status(500).send("Error adding assignment: " + error.message);
+        console.error("Error adding assignment:", error);
+        res.status(500).json({ success: false, message: "Error adding assignment: " + error.message });
+    }
+});
+// Route to get the latest assignment (for students)
+// app.get('/get-latest-assignment', async (req, res) => {
+//     try {
+//         const assignment = await Assignment.findOne().sort({ createdAt: -1 }); // Get latest assignment
+//         if (assignment) {
+//             res.json({ assignment });
+//         } else {
+//             res.json({ assignment: null });
+//         }
+//     } catch (error) {
+//         res.status(500).send("Error fetching assignment: " + error.message);
+//     }
+// });
+
+app.get('/get-latest-assignment', async (req, res) => {
+    try {
+        const assignment = await Assignment.findOne().sort({ createdAt: -1 });  // Get the latest assignment
+        if (assignment) {
+            return res.json({ assignment });
+        } else {
+            return res.json({ assignment: null });  // No assignment available
+        }
+    } catch (error) {
+        console.error('Error fetching latest assignment:', error);
+        return res.status(500).json({ message: 'Error fetching latest assignment' });
     }
 });
 
-// Route to get the latest assignment (for students)
-app.get('/get-latest-assignment', async (req, res) => {
-    try {
-        const assignment = await Assignment.findOne().sort({ createdAt: -1 }); // Get latest assignment
-        if (assignment) {
-            res.json({ assignment });
-        } else {
-            res.json({ assignment: null });
-        }
-    } catch (error) {
-        res.status(500).send("Error fetching assignment: " + error.message);
-    }
-});
 
 // Route to submit an assignment (for students)
 app.post('/submit-assignment', upload.single('assignment-file'), async (req, res) => {
@@ -243,6 +275,7 @@ app.get('/teacher', async (req, res) => {
         res.status(500).send("Error fetching assignments: " + error.message);
     }
 });
+
 
 
 

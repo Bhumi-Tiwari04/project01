@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,42 +45,40 @@
     </div>
 
     <!-- Submitted Assignments Section -->
-     <!-- Submitted Assignments Section -->
-     <div id="assignment-box" class="assignment-box">
-        <h2>Assignments</h2>
-        <% if (assignments && assignments.length > 0) { %>
-            <ul>
-                <% assignments.forEach(function(a) { %>
-                    <li>
-                        <strong><%= a.title %></strong>: <%= a.description %> 
-                        (Deadline: <%= a.deadline.toISOString().split('T')[0] %>)
-                    </li>
-                <% }) %>
-            </ul>
-        <% } else { %>
-            <p>No assignments available.</p>
-        <% } %>
+    <div id="assignment-box" class="assignment-box" style="display: none;">
+        <h2>Submitted Assignments</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Assignment Name</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody id="assignment-table-body"></tbody>
+        </table>
     </div>
 
     <!-- New Assignment Section -->
     <div id="new-assignment-box" class="new-assignment-box">
         <h2>Add New Assignment Question</h2>
         <form id="new-assignment-form">
+            <label for="assignment-title">Title:</label><br>
+            <input type="text" id="assignment-title" placeholder="Enter assignment title"><br><br>
+    
+            <label for="assignment-description">Description:</label><br>
+            <textarea id="assignment-description" rows="4" cols="50" placeholder="Enter assignment description..."></textarea><br><br>
+    
             <label for="assignment-question">Assignment Question:</label><br>
             <textarea id="assignment-question" rows="4" cols="50" placeholder="Enter the new assignment question here..."></textarea><br><br>
+    
             <label for="assignment-deadline">Deadline:</label><br>
             <input type="date" id="assignment-deadline"><br><br>
+    
             <button type="button" onclick="addAssignment()">Add Assignment</button>
         </form>
-
-        <ul>
-            <% assignments.forEach(function(a) { %>
-                <li><%= a.title %>: <%= a.description %></li>
-            <% }) %>
-        </ul>
-        
     </div>
-
+    
     <a href="/student">Go to Student Page</a>
 </div>
 
@@ -90,36 +89,17 @@
             .then(response => response.json())
             .then(data => {
                 const assignmentTableBody = document.getElementById('assignment-table-body');
-                assignmentTableBody.innerHTML = '';  // Clear previous content
-    
+                assignmentTableBody.innerHTML = '';
                 data.assignments.forEach(assignment => {
-                    const row = document.createElement('tr');
-                    
-                    // Create table cells (td)
-                    const studentNameCell = document.createElement('td');
-                    studentNameCell.textContent = assignment.studentName; // Safe insertion
-                    
-                    const assignmentNameCell = document.createElement('td');
-                    assignmentNameCell.textContent = assignment.assignmentName; // Safe insertion
-                    
-                    const downloadCell = document.createElement('td');
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = `/students/files/${assignment.fileId}`;
-                    downloadLink.download = true;
-                    downloadLink.textContent = 'Download'; // Safe insertion
-                    
-                    downloadCell.appendChild(downloadLink);
-    
-                    // Append cells to row
-                    row.appendChild(studentNameCell);
-                    row.appendChild(assignmentNameCell);
-                    row.appendChild(downloadCell);
-    
-                    // Append the row to the table body
-                    assignmentTableBody.appendChild(row);
+                    const row = `
+                        <tr>
+                            <td>${assignment.studentName}</td>
+                            <td>${assignment.assignmentName}</td>
+                            <td><a href="/students/files/${assignment.fileId}" download>Download</a></td>
+                        </tr>
+                    `;
+                    assignmentTableBody.innerHTML += row;
                 });
-    
-                // Show the assignment box (if needed)
                 document.getElementById('assignment-box').style.display = 'block';
             })
             .catch(error => {
@@ -127,7 +107,7 @@
                 alert('Error fetching assignments.');
             });
     }
-    
+
     // Fetch attendance data (for now, using static data)
     function fetchAttendance(course) {
         const attendanceTableBody = document.getElementById('attendance-table-body');
@@ -174,23 +154,23 @@
 
     // Function to add a new assignment question
     function addAssignment() {
+        const title = document.getElementById('assignment-title').value;
+        const description = document.getElementById('assignment-description').value;
         const question = document.getElementById('assignment-question').value;
         const deadline = document.getElementById('assignment-deadline').value;
-
-        if (question && deadline) {
+    
+        // Check if all required fields are filled
+        if (title && description && question && deadline) {
             // Log the data being sent
-            console.log('Adding Assignment:', { question, deadline });
-
+            console.log('Adding Assignment:', { title, description, question, deadline });
+    
             // Send assignment data to the server via POST
             fetch('/add-assignment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question, deadline })
+                body: JSON.stringify({ title, description, question, deadline })
             })
-            .then(response => {
-                // Log the server response
-                return response.json(); // This will parse the JSON response body
-            })
+            .then(response => response.json()) // Parse the JSON response body
             .then(data => {
                 // Log the parsed response data
                 console.log('Server response:', data);
@@ -202,10 +182,10 @@
                 alert('Error adding assignment: ' + error);  // Show an alert
             });
         } else {
-            alert('Please fill in both the assignment question and deadline.');
+            alert('Please fill in all the required fields (title, description, question, and deadline).');
         }
     }
-</script>
+    </script>
 
 </body>
 </html>

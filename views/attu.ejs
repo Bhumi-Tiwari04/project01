@@ -15,6 +15,14 @@
             <h2>Latest Assignment</h2>
             <div id="assignment-details">
                 <!-- Latest assignment details will be populated here -->
+                <% if (assignment) { %>
+                    <p><strong>Assignment Title:</strong> <%= assignment.title %></p>
+                    <p><strong>Description:</strong> <%= assignment.description %></p>
+                    <p><strong>Assignment Question:</strong> <%= assignment.question %></p>
+                    <p><strong>Deadline:</strong> <%= new Date(assignment.deadline).toLocaleDateString() %></p>
+                <% } else { %>
+                    <p>No new assignments available.</p>
+                <% } %>
             </div>
         </div>
 
@@ -35,7 +43,7 @@
                 <button type="submit">Submit Assignment</button>
             </form>
         </div>
-        
+        <h1>hellllllllllllllo</h1>
         <!-- Attendance Marking Section -->
         <div>
             <h3>Mark Attendance</h3>
@@ -49,7 +57,6 @@
             <button onclick="markAttendance()">Mark Attendance</button>
         </div>
 
-        <a href="/teacher">Go to Teacher Page</a>
     </div>
 
     <script>
@@ -64,6 +71,8 @@
                 if (data.assignment) {
                     // If there is a latest assignment, show it
                     assignmentBox.innerHTML = `
+                        <p><strong>Assignment Title:</strong> ${data.assignment.title}</p>
+                        <p><strong>Description:</strong> ${data.assignment.description}</p>
                         <p><strong>Assignment Question:</strong> ${data.assignment.question}</p>
                         <p><strong>Deadline:</strong> ${new Date(data.assignment.deadline).toLocaleDateString()}</p>
                     `;
